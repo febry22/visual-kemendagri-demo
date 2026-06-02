@@ -12,6 +12,7 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
   const [selectedNodeInfo, setSelectedNodeInfo] = useState<any>(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'IPM' | 'IKF' | 'TIK' | 'IDI'>('ALL');
 
   useEffect(() => {
@@ -313,6 +314,11 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
       setSelectedNodeInfo(null);
     });
 
+    cy.on('mousemove', 'node', (evt) => {
+      const pos = evt.renderedPosition;
+      setTooltipPos({ x: pos.x, y: pos.y });
+    });
+
   }, [theme]);
 
   // Filter effect
@@ -397,7 +403,14 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
 
         {/* Floating Tooltip/Detail Panel when Hovering */}
         {selectedNodeInfo && (
-          <div className="absolute bottom-4 left-4 z-20 glass-panel p-4 rounded-xl max-w-[280px] shadow-2xl border-purple-500/40 animate-fade-in">
+          <div 
+            className="absolute z-20 glass-panel p-4 rounded-xl max-w-[280px] shadow-2xl border-purple-500/40 pointer-events-none animate-fade-in"
+            style={{
+              left: tooltipPos.x > 420 ? `${tooltipPos.x - 300}px` : `${tooltipPos.x + 20}px`,
+              top: tooltipPos.y < 180 ? `${tooltipPos.y + 20}px` : `${tooltipPos.y - 20}px`,
+              transform: tooltipPos.y < 180 ? 'none' : 'translate(0, -100%)',
+            }}
+          >
             <div className="flex items-center gap-1.5 mb-2 border-b border-brand-border pb-1.5">
               <Zap className="w-4 h-4 text-purple-400" />
               <h4 className="text-xs font-bold text-gray-100 dark:text-gray-900 uppercase tracking-wide">
