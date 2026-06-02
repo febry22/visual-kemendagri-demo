@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #080c14;
+  --card-color: #0f1626;
+  --border-color: #1f293d;
+  --text-color: #f3f4f6;
+  --text-muted: #94a3b8;
+  --map-opacity: 0.1;
+}
+
+:root.light {
+  --bg-color: #f1f5f9;
+  --card-color: #ffffff;
+  --border-color: #cbd5e1;
+  --text-color: #0f172a;
+  --text-muted: #64748b;
+  --map-opacity: 0.25;
+}
+
+@theme {
+  --color-brand-bg: var(--bg-color);
+  --color-brand-card: var(--card-color);
+  --color-brand-border: var(--border-color);
+  --color-brand-textMuted: var(--text-muted);
+  
+  --color-brand-glowGreen: #10b981;
+  --color-brand-glowPurple: #a855f7;
+  --color-brand-glowBlue: #3b82f6;
+  --color-brand-glowOrange: #f97316;
+  
+  --shadow-glow-green: 0 0 15px rgba(16, 185, 129, 0.3);
+  --shadow-glow-purple: 0 0 15px rgba(168, 85, 247, 0.3);
+  --shadow-glow-blue: 0 0 15px rgba(59, 130, 246, 0.3);
+  --shadow-glow-orange: 0 0 15px rgba(249, 115, 22, 0.3);
+  --shadow-glow-cyan: 0 0 15px rgba(6, 182, 212, 0.3);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(15, 22, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(31, 41, 61, 0.6);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+:root.light .glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+}
+
+/* Glow animation keyframes */
+@keyframes pulse-glow-green {
+  0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.2), inset 0 0 5px rgba(16, 185, 129, 0.1); }
+  50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), inset 0 0 10px rgba(16, 185, 129, 0.2); }
+}
+
+@keyframes pulse-glow-purple {
+  0%, 100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.2), inset 0 0 5px rgba(168, 85, 247, 0.1); }
+  50% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), inset 0 0 10px rgba(168, 85, 247, 0.2); }
+}
+
+@keyframes pulse-glow-blue {
+  0%, 100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.2), inset 0 0 5px rgba(59, 130, 246, 0.1); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), inset 0 0 10px rgba(59, 130, 246, 0.2); }
+}
+
+@keyframes pulse-glow-orange {
+  0%, 100% { box-shadow: 0 0 10px rgba(249, 115, 22, 0.2), inset 0 0 5px rgba(249, 115, 22, 0.1); }
+  50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.5), inset 0 0 10px rgba(249, 115, 22, 0.2); }
+}
+
+.animate-glow-green {
+  animation: pulse-glow-green 3s infinite;
+}
+
+.animate-glow-purple {
+  animation: pulse-glow-purple 3s infinite;
+}
+
+.animate-glow-blue {
+  animation: pulse-glow-blue 3s infinite;
+}
+
+.animate-glow-orange {
+  animation: pulse-glow-orange 3s infinite;
+}
+
+/* Indonesia Map Silhouette Background for cytoscape wrapper */
+.map-bg {
+  background-image: url('https://images.unsplash.com/photo-1588668214407-6797b2d5f52c?auto=format&fit=crop&q=80&w=1200'); /* Standard dark grid pattern */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.map-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(var(--bg-color), 0.4) 0%, rgba(var(--bg-color), 0.95) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+:root.light .map-bg::before {
+  background: radial-gradient(circle at center, rgba(241, 245, 249, 0.3) 0%, rgba(241, 245, 249, 0.9) 100%);
+}
