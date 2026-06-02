@@ -14,7 +14,6 @@ function App() {
     if (saved === 'light' || saved === 'dark') return saved;
     return 'light'; // Default theme
   });
-  const [isLive, setIsLive] = useState<boolean>(true);
 
   useEffect(() => {
     const updateTime = () => {
@@ -94,19 +93,11 @@ function App() {
             </button>
           </div>
 
-          {/* Status Indicator / Switch Button */}
-          <button
-            onClick={() => setIsLive(!isLive)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all cursor-pointer text-[10px] font-bold tracking-wider uppercase select-none ${
-              isLive
-                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500/20'
-                : 'bg-rose-500/10 border-rose-500/30 text-rose-500 dark:text-rose-400 hover:bg-rose-500/20'
-            }`}
-            title={isLive ? "Klik untuk mematikan simulasi live" : "Klik untuk menghidupkan simulasi live"}
-          >
-            <span className={`w-2 h-2 rounded-full ${isLive ? 'bg-emerald-500 dark:bg-emerald-400 animate-ping' : 'bg-rose-500 dark:bg-rose-400'}`} />
-            Live Database: {isLive ? 'ON' : 'OFF'}
-          </button>
+          {/* Status Indicator (Static) */}
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 dark:text-emerald-400 text-[10px] font-bold tracking-wider uppercase select-none">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+            Database Terkoneksi
+          </div>
           
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-border/40 text-brand-textMuted border border-brand-border text-[10px] font-semibold tracking-wide">
             {time}
@@ -119,7 +110,7 @@ function App() {
         
         {/* Column 1: Left Widgets */}
         <div className="flex flex-col gap-6 lg:col-span-1">
-          <LiveFeed isLive={isLive} />
+          <LiveFeed />
           <MetricsPanel />
           <TopContributors />
         </div>

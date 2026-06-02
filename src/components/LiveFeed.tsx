@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { provincesData } from '../data/regionsData';
 import { Radio } from 'lucide-react';
 
 interface FeedItem {
@@ -12,14 +11,10 @@ interface FeedItem {
   time: string;
 }
 
-interface LiveFeedProps {
-  isLive: boolean;
-}
-
-export const LiveFeed: React.FC<LiveFeedProps> = ({ isLive }) => {
+export const LiveFeed: React.FC = () => {
   const [feeds, setFeeds] = useState<FeedItem[]>([]);
 
-  // Initial feed data from real provinces
+  // Initial feed data from real provinces (representing historical updates)
   useEffect(() => {
     const initialItems: FeedItem[] = [
       {
@@ -62,40 +57,12 @@ export const LiveFeed: React.FC<LiveFeedProps> = ({ isLive }) => {
     setFeeds(initialItems);
   }, []);
 
-  // Simulate real-time live feed additions
-  useEffect(() => {
-    if (!isLive) return;
-
-    const metrics = ['IPM', 'Skor IKF', 'Skor TIK', 'Skor IDI'];
-    const interval = setInterval(() => {
-      const randomProv = provincesData[Math.floor(Math.random() * provincesData.length)];
-      const randomMetric = metrics[Math.floor(Math.random() * metrics.length)];
-      const val = (Math.random() * 2 + 0.1).toFixed(1);
-      const isPositive = Math.random() > 0.3;
-      const change = `${isPositive ? '+' : '-'}${val}%`;
-      
-      const newFeed: FeedItem = {
-        id: Date.now().toString(),
-        region: randomProv.regional,
-        province: randomProv.name,
-        metric: randomMetric,
-        change,
-        isPositive,
-        time: 'Baru saja'
-      };
-
-      setFeeds(prev => [newFeed, ...prev.slice(0, 5)]);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [isLive]);
-
   return (
     <div className="glass-panel rounded-xl p-4 flex flex-col h-[280px]">
       <div className="flex items-center gap-2 mb-3 border-b border-brand-border pb-2">
-        <Radio className={`w-4 h-4 transition-colors ${isLive ? 'text-emerald-500 dark:text-emerald-400 animate-pulse' : 'text-gray-500'}`} />
+        <Radio className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
         <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-textMuted">
-          Live Feed: Perubahan Wilayah
+          Log Pembaruan Terakhir
         </h3>
       </div>
       <div className="flex-1 overflow-y-auto space-y-2 pr-1">
@@ -118,7 +85,7 @@ export const LiveFeed: React.FC<LiveFeedProps> = ({ isLive }) => {
                 </span>
               </p>
             </div>
-            <span className="text-[9px] text-gray-500 dark:text-gray-500 whitespace-nowrap pt-0.5">
+            <span className="text-[9px] text-gray-555 dark:text-gray-500 whitespace-nowrap pt-0.5">
               {feed.time}
             </span>
           </div>
