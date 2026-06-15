@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { LiveFeed } from './components/LiveFeed';
 import { MetricsPanel } from './components/MetricsPanel';
 import { TopContributors } from './components/TopContributors';
-import { NetworkGraph } from './components/NetworkGraph';
+import { IndonesiaMap } from './components/IndonesiaMap';
 import { StatusCharts } from './components/StatusCharts';
 import { ActionableItems } from './components/ActionableItems';
+import { Sidebar } from './components/Sidebar';
 import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
 
 function App() {
@@ -48,10 +49,11 @@ function App() {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-brand-bg flex flex-col font-sans transition-colors duration-300">
-      
+    <div className="min-h-screen bg-brand-bg flex font-sans transition-colors duration-300">
+      <Sidebar />
+      <div className="flex-1 flex flex-col min-w-0">
       {/* Premium Futuristic Header */}
-      <header className="px-6 py-4 border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors duration-300">
+      <header className="px-6 py-4 md:py-0 md:h-[73px] border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors duration-300">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
             <Database className="w-5 h-5 text-white animate-pulse" />
@@ -106,23 +108,23 @@ function App() {
       </header>
 
       {/* Main Responsive Grid Layout */}
-      <main className="flex-1 p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 p-6 grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-4 gap-6 max-w-[1800px] mx-auto w-full">
         
         {/* Column 1: Left Widgets */}
-        <div className="flex flex-col gap-6 lg:col-span-1">
-          <LiveFeed />
+        <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
           <MetricsPanel />
-          <TopContributors />
+          <LiveFeed />
         </div>
 
-        {/* Column 2 & 3: Main Graph Panel */}
-        <div className="lg:col-span-2 flex flex-col">
-          <NetworkGraph theme={theme} />
+        {/* Column 2: Main Map Panel */}
+        <div className="lg:col-span-2 xl:col-span-6 flex flex-col min-h-[500px]">
+          <IndonesiaMap theme={theme} />
         </div>
 
-        {/* Column 4: Right Widgets */}
-        <div className="flex flex-col gap-6 lg:col-span-1">
+        {/* Column 3: Right Widgets */}
+        <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
           <StatusCharts />
+          <TopContributors />
           <ActionableItems />
         </div>
       </main>
@@ -138,6 +140,7 @@ function App() {
         </div>
       </footer>
 
+    </div>
     </div>
   );
 }

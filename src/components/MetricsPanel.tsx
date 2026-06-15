@@ -11,7 +11,7 @@ export const MetricsPanel: React.FC = () => {
   const totalDataPoints = nationalAverages.totalProvinces * 4 + nationalAverages.totalKabKota * 4;
 
   return (
-    <div className="glass-panel rounded-xl p-4 flex flex-col h-[280px]">
+    <div className="glass-panel rounded-xl p-4 flex flex-col">
       <div className="flex items-center gap-2 mb-3 border-b border-brand-border pb-2">
         <Compass className="w-4 h-4 text-cyan-400" />
         <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-textMuted">
@@ -19,7 +19,7 @@ export const MetricsPanel: React.FC = () => {
         </h3>
       </div>
       
-      <div className="grid grid-cols-2 gap-3 flex-1">
+      <div className="grid grid-cols-2 gap-3">
         <div className="bg-brand-bg/30 border border-brand-border/40 p-2.5 rounded flex flex-col justify-between">
           <div>
             <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-medium">Total Indikator</span>
