@@ -19,6 +19,8 @@ function App() {
     return 'light'; // Default theme
   });
   const [activeProvince, setActiveProvince] = useState<string | null>(null);
+  const [mapColorDark, setMapColorDark] = useState<string>('#6366f1'); // Default dark
+  const [mapColorLight, setMapColorLight] = useState<string>('#f97316'); // Default light
 
   useEffect(() => {
     const updateTime = () => {
@@ -54,7 +56,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-brand-bg flex font-sans transition-colors duration-300">
-      <Sidebar />
+      <Sidebar 
+        mapColorDark={mapColorDark} setMapColorDark={setMapColorDark} 
+        mapColorLight={mapColorLight} setMapColorLight={setMapColorLight} 
+      />
       <div className="flex-1 flex flex-col min-w-0">
       {/* Premium Futuristic Header */}
       <header className="px-6 py-4 md:py-0 md:h-[73px] border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors duration-300">
@@ -127,12 +132,13 @@ function App() {
             <LiveFeed />
           </div> */}
 
-        {/* Column 2: Main Map Panel */}
         <div className="lg:col-span-3 xl:col-span-9 flex flex-col min-h-[500px]">
           <IndonesiaMap 
             theme={theme} 
             activeProvince={activeProvince} 
-            setActiveProvince={setActiveProvince} 
+            setActiveProvince={setActiveProvince}
+            mapColorDark={mapColorDark}
+            mapColorLight={mapColorLight}
           />
         </div>
 

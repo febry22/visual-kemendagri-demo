@@ -22,9 +22,11 @@ interface IndonesiaMapProps {
   theme: 'dark' | 'light';
   activeProvince: string | null;
   setActiveProvince: (province: string | null) => void;
+  mapColorDark: string;
+  mapColorLight: string;
 }
 
-export function IndonesiaMap({ theme, activeProvince, setActiveProvince }: IndonesiaMapProps) {
+export function IndonesiaMap({ theme, activeProvince, setActiveProvince, mapColorDark, mapColorLight }: IndonesiaMapProps) {
   const [tooltipContent, setTooltipContent] = useState('');
   const [position, setPosition] = useState({ coordinates: [117, -2] as [number, number], zoom: 1 });
   
@@ -35,8 +37,8 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince }: Indon
     .domain([60, 85])
     .range(
       theme === 'dark' 
-        ? ['#1e1b4b', '#6366f1'] // Dark theme: Deep Indigo to Bright Indigo
-        : ['#ffedd5', '#f97316'] // Light theme: Light Orange to Orange
+        ? ['#1e1b4b', mapColorDark] // Dark theme base -> User Dark Color
+        : ['#ffedd5', mapColorLight] // Light theme base -> User Light Color
     );
 
   const handleProvinceClick = (geo: any) => {

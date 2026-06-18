@@ -16,8 +16,16 @@ import {
 } from 'lucide-react';
 import logoKemendagri from '../assets/logo-kemendagri.png';
 
-export function Sidebar() {
+interface SidebarProps {
+  mapColorDark?: string;
+  setMapColorDark?: (c: string) => void;
+  mapColorLight?: string;
+  setMapColorLight?: (c: string) => void;
+}
+
+export function Sidebar({ mapColorDark = '#6366f1', setMapColorDark, mapColorLight = '#f97316', setMapColorLight }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const menuItems = [
     { icon: Home, label: 'Beranda', active: true },
@@ -87,15 +95,47 @@ export function Sidebar() {
 
       {/* Bottom Area */}
       <div className={`p-4 border-t border-brand-border/40 flex flex-col gap-2 shrink-0 ${isExpanded ? '' : 'items-center px-2'}`}>
-        <button 
-          title={!isExpanded ? "Pengaturan" : undefined}
-          className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 border border-transparent transition-all text-left cursor-pointer ${
-            isExpanded ? 'px-3 w-full' : 'px-0 w-10 h-10 justify-center'
-          }`}
-        >
-          <Settings className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
-          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-brand-text">Pengaturan</span>}
-        </button>
+        <div className="relative w-full">
+          <button 
+            onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+            title={!isExpanded ? "Pengaturan" : undefined}
+            className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 border border-transparent transition-all text-left cursor-pointer ${
+              isExpanded ? 'px-3 w-full' : 'px-0 w-10 h-10 justify-center'
+            } ${isSettingsOpen ? 'bg-brand-border/30 text-brand-text' : ''}`}
+          >
+            <Settings className={`w-5 h-5 shrink-0 transition-all ${isSettingsOpen ? 'text-blue-500 rotate-90' : 'group-hover:text-blue-500'}`} />
+            {isExpanded && <span className="whitespace-nowrap transition-colors">Pengaturan</span>}
+          </button>
+          
+          {/* Settings Popover */}
+          {isSettingsOpen && (
+            <div className={`absolute bottom-full mb-2 left-0 w-56 bg-brand-card/95 backdrop-blur-xl border border-brand-border rounded-xl shadow-2xl p-4 z-50 animate-in slide-in-from-bottom-2 fade-in duration-200 ${!isExpanded ? 'left-14' : ''}`}>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-text mb-3">Pewarnaan Peta</h4>
+              
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-brand-textMuted font-medium">Dark Mode</span>
+                  <input 
+                    type="color" 
+                    value={mapColorDark} 
+                    onChange={(e) => setMapColorDark?.(e.target.value)}
+                    className="w-7 h-7 rounded cursor-pointer border border-brand-border/80 bg-transparent p-0 cursor-pointer"
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-brand-textMuted font-medium">Light Mode</span>
+                  <input 
+                    type="color" 
+                    value={mapColorLight} 
+                    onChange={(e) => setMapColorLight?.(e.target.value)}
+                    className="w-7 h-7 rounded cursor-pointer border border-brand-border/80 bg-transparent p-0 cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         <button 
           title={!isExpanded ? "Pusat Bantuan" : undefined}
           className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 border border-transparent transition-all text-left cursor-pointer ${
