@@ -18,6 +18,7 @@ function App() {
     if (saved === 'light' || saved === 'dark') return saved;
     return 'light'; // Default theme
   });
+  const [activeProvince, setActiveProvince] = useState<string | null>(null);
 
   useEffect(() => {
     const updateTime = () => {
@@ -117,7 +118,7 @@ function App() {
       <main className="flex-1 p-6 flex flex-col gap-6 max-w-[1800px] mx-auto w-full">
         
         {/* Top Metrics Row */}
-        <TopMetricsRow />
+        <TopMetricsRow activeProvince={activeProvince} />
 
         <div className="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-4 gap-6 w-full">
           {/* Column 1: Left Widgets (Hidden temporarily) */}
@@ -128,12 +129,16 @@ function App() {
 
         {/* Column 2: Main Map Panel */}
         <div className="lg:col-span-3 xl:col-span-9 flex flex-col min-h-[500px]">
-          <IndonesiaMap theme={theme} />
+          <IndonesiaMap 
+            theme={theme} 
+            activeProvince={activeProvince} 
+            setActiveProvince={setActiveProvince} 
+          />
         </div>
 
         {/* Column 3: Right Widgets */}
         <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
-          <AiInsights />
+          <AiInsights activeProvince={activeProvince} />
           {/* <StatusCharts />
           <TopContributors />
           <ActionableItems /> */}
@@ -141,7 +146,7 @@ function App() {
         </div>
         
         {/* Bottom Metrics Row */}
-        <BottomDashboardRow />
+        <BottomDashboardRow activeProvince={activeProvince} />
 
         {/* Integrated Data Filter */}
         <IntegratedDataFilter />

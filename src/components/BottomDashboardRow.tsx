@@ -40,12 +40,20 @@ const inovasiData = [
   { name: 'Belum Dilaporkan', value: 66, color: '#ef4444' },
 ];
 
-export function BottomDashboardRow() {
+interface BottomDashboardRowProps {
+  activeProvince: string | null;
+}
+
+export function BottomDashboardRow({ activeProvince }: BottomDashboardRowProps) {
+  const isProv = activeProvince !== null;
+  const name = isProv ? activeProvince : 'Nasional';
+  const totalInovasi = isProv ? Math.floor(542 * 0.15) : 542; // Dummy calculation
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
       {/* 1. TREN INDIKATOR STRATEGIS */}
       <div className="lg:col-span-3 bg-brand-card/60 backdrop-blur-md border border-brand-border/60 rounded-2xl p-4 flex flex-col shadow-lg shadow-black/5 transition-colors">
-        <h3 className="text-xs font-bold text-center uppercase tracking-widest text-brand-textMuted mb-4">Tren Indikator Strategis</h3>
+        <h3 className="text-xs font-bold text-center uppercase tracking-widest text-brand-textMuted mb-4">Tren Indikator Strategis <span className="text-cyan-500 font-bold ml-1">{isProv ? `(${name})` : ''}</span></h3>
         <div className="flex-1 min-h-[220px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={trenData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
