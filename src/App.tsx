@@ -59,7 +59,7 @@ function App() {
             <Database className="w-5 h-5 text-white animate-pulse" />
           </div>
           <div>
-            <h1 className="text-base md:text-lg font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-gray-300">
+            <h1 className="text-base md:text-lg font-black tracking-wider transition-colors">
               DASHBOARD VISUALISASI KEMENDAGRI
             </h1>
             <p className="text-[10px] md:text-xs text-brand-textMuted font-medium tracking-wide">

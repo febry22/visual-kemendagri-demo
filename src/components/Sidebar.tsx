@@ -31,7 +31,7 @@ export function Sidebar() {
             <span className="text-white font-bold text-sm">K</span>
           </div>
           {isExpanded && (
-            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-gray-300 tracking-wide text-lg whitespace-nowrap overflow-hidden transition-all">
+            <span className="font-bold tracking-wide text-lg whitespace-nowrap overflow-hidden transition-colors">
               KEMENDAGRI
             </span>
           )}
