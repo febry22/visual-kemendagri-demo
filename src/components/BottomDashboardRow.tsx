@@ -47,7 +47,6 @@ interface BottomDashboardRowProps {
 export function BottomDashboardRow({ activeProvince }: BottomDashboardRowProps) {
   const isProv = activeProvince !== null;
   const name = isProv ? activeProvince : 'Nasional';
-  const totalInovasi = isProv ? Math.floor(542 * 0.15) : 542; // Dummy calculation
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
