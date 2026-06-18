@@ -8,6 +8,8 @@ import { IndonesiaMap } from './components/IndonesiaMap';
 import { Sidebar } from './components/Sidebar';
 import { TopMetricsRow } from './components/TopMetricsRow';
 import { AiInsights } from './components/AiInsights';
+import { BottomDashboardRow } from './components/BottomDashboardRow';
+import { IntegratedDataFilter } from './components/IntegratedDataFilter';
 import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
@@ -137,6 +139,12 @@ function App() {
           <ActionableItems /> */}
         </div>
         </div>
+        
+        {/* Bottom Metrics Row */}
+        <BottomDashboardRow />
+
+        {/* Integrated Data Filter */}
+        <IntegratedDataFilter />
       </main>
 
       {/* Bottom Footer */}
