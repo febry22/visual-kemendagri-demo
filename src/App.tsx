@@ -6,6 +6,7 @@ import { IndonesiaMap } from './components/IndonesiaMap';
 import { StatusCharts } from './components/StatusCharts';
 import { ActionableItems } from './components/ActionableItems';
 import { Sidebar } from './components/Sidebar';
+import { TopMetricsRow } from './components/TopMetricsRow';
 import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
@@ -110,16 +111,20 @@ function App() {
       </header>
 
       {/* Main Responsive Grid Layout */}
-      <main className="flex-1 p-6 grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-4 gap-6 max-w-[1800px] mx-auto w-full">
+      <main className="flex-1 p-6 flex flex-col gap-6 max-w-[1800px] mx-auto w-full">
         
-        {/* Column 1: Left Widgets */}
-        <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
-          <MetricsPanel />
-          <LiveFeed />
-        </div>
+        {/* Top Metrics Row */}
+        <TopMetricsRow />
+
+        <div className="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-4 gap-6 w-full">
+          {/* Column 1: Left Widgets (Hidden temporarily) */}
+          {/* <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
+            <MetricsPanel />
+            <LiveFeed />
+          </div> */}
 
         {/* Column 2: Main Map Panel */}
-        <div className="lg:col-span-2 xl:col-span-6 flex flex-col min-h-[500px]">
+        <div className="lg:col-span-3 xl:col-span-9 flex flex-col min-h-[500px]">
           <IndonesiaMap theme={theme} />
         </div>
 
@@ -128,6 +133,7 @@ function App() {
           <StatusCharts />
           <TopContributors />
           <ActionableItems />
+        </div>
         </div>
       </main>
 
