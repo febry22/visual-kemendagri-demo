@@ -71,16 +71,16 @@ export function Sidebar() {
           <button
             key={index}
             title={!isExpanded ? item.label : undefined}
-            className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left cursor-pointer ${
+            className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left cursor-pointer ${
               isExpanded ? 'px-3 w-full' : 'px-0 w-10 h-10 justify-center'
             } ${
               item.active 
                 ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shadow-sm' 
-                : 'text-brand-textMuted hover:bg-brand-border/30 hover:text-gray-800 dark:hover:text-gray-200 border border-transparent'
+                : 'text-brand-textMuted hover:bg-brand-border/30 border border-transparent'
             }`}
           >
-            <item.icon className={`w-5 h-5 shrink-0 ${item.active ? 'text-blue-600 dark:text-blue-400' : 'text-brand-textMuted'}`} />
-            {isExpanded && <span className="whitespace-nowrap">{item.label}</span>}
+            <item.icon className={`w-5 h-5 shrink-0 transition-colors ${item.active ? 'text-blue-600 dark:text-blue-400' : 'text-brand-textMuted group-hover:text-blue-500'}`} />
+            {isExpanded && <span className={`whitespace-nowrap transition-colors ${!item.active ? 'group-hover:text-gray-900 dark:group-hover:text-white' : ''}`}>{item.label}</span>}
           </button>
         ))}
       </div>
@@ -89,21 +89,21 @@ export function Sidebar() {
       <div className={`p-4 border-t border-brand-border/40 flex flex-col gap-2 shrink-0 ${isExpanded ? '' : 'items-center px-2'}`}>
         <button 
           title={!isExpanded ? "Pengaturan" : undefined}
-          className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 hover:text-gray-800 dark:hover:text-gray-200 transition-all text-left cursor-pointer ${
+          className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 border border-transparent transition-all text-left cursor-pointer ${
             isExpanded ? 'px-3 w-full' : 'px-0 w-10 h-10 justify-center'
           }`}
         >
-          <Settings className="w-5 h-5 shrink-0" />
-          {isExpanded && <span className="whitespace-nowrap">Pengaturan</span>}
+          <Settings className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
+          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-gray-900 dark:group-hover:text-white">Pengaturan</span>}
         </button>
         <button 
           title={!isExpanded ? "Pusat Bantuan" : undefined}
-          className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 hover:text-gray-800 dark:hover:text-gray-200 transition-all text-left cursor-pointer ${
+          className={`group flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-brand-textMuted hover:bg-brand-border/30 border border-transparent transition-all text-left cursor-pointer ${
             isExpanded ? 'px-3 w-full' : 'px-0 w-10 h-10 justify-center'
           }`}
         >
-          <HelpCircle className="w-5 h-5 shrink-0" />
-          {isExpanded && <span className="whitespace-nowrap">Pusat Bantuan</span>}
+          <HelpCircle className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
+          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-gray-900 dark:group-hover:text-white">Pusat Bantuan</span>}
         </button>
       </div>
     </aside>

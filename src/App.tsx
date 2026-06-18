@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { LiveFeed } from './components/LiveFeed';
-import { MetricsPanel } from './components/MetricsPanel';
+// import { LiveFeed } from './components/LiveFeed';
+// import { MetricsPanel } from './components/MetricsPanel';
 import { TopContributors } from './components/TopContributors';
 import { IndonesiaMap } from './components/IndonesiaMap';
 import { StatusCharts } from './components/StatusCharts';
