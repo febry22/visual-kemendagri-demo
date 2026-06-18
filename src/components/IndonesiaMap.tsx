@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
 import { scaleLinear } from 'd3-scale';
 import { geoCentroid } from 'd3-geo';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Plus, Minus } from 'lucide-react';
 import geoData from '../data/indonesia.json';
 
 // Generate mock data for provinces to create a heatmap effect
@@ -53,6 +53,19 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince }: Indon
     setActiveProvince(null);
   };
 
+  const handleZoomIn = () => {
+    if (position.zoom >= 8) return;
+    setPosition(pos => ({ ...pos, zoom: pos.zoom * 1.5 }));
+  };
+
+  const handleZoomOut = () => {
+    if (position.zoom <= 1) {
+      handleResetMap();
+      return;
+    }
+    setPosition(pos => ({ ...pos, zoom: pos.zoom / 1.5 }));
+  };
+
   return (
     <div className="w-full h-full min-h-[500px] flex flex-col items-center justify-center bg-brand-card/40 backdrop-blur-sm border border-brand-border/50 rounded-2xl p-4 relative overflow-hidden">
       
@@ -69,12 +82,30 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince }: Indon
             <span className="text-xs font-bold text-cyan-500 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/30">{activeProvince}</span>
             <button 
               onClick={handleResetMap}
-              className="ml-2 flex items-center gap-1 text-[10px] bg-red-500/10 text-red-500 hover:bg-red-500/20 px-2 py-1 rounded border border-red-500/30 transition-colors"
+              className="ml-2 flex items-center gap-1 text-[10px] bg-red-500/10 text-red-500 hover:bg-red-500/20 px-2 py-1 rounded border border-red-500/30 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-3 h-3" /> Kembali
             </button>
           </div>
         )}
+      </div>
+
+      {/* Map Zoom Controls */}
+      <div className="absolute bottom-6 left-6 z-10 flex flex-col shadow-lg rounded-lg border border-brand-border/50 overflow-hidden bg-brand-card/80 backdrop-blur-md">
+        <button 
+          onClick={handleZoomIn}
+          className="p-2 hover:bg-brand-card/60 text-brand-text border-b border-brand-border/50 transition-colors cursor-pointer"
+          title="Zoom In"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+        <button 
+          onClick={handleZoomOut}
+          className="p-2 hover:bg-brand-card/60 text-brand-text transition-colors cursor-pointer"
+          title="Zoom Out"
+        >
+          <Minus className="w-4 h-4" />
+        </button>
       </div>
 
       <div className="w-full h-full flex-1">
