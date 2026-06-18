@@ -23,6 +23,7 @@
   --color-brand-card: var(--card-color);
   --color-brand-border: var(--border-color);
   --color-brand-textMuted: var(--text-muted);
+  --color-brand-text: var(--text-color);
   
   --color-brand-glowGreen: #10b981;
   --color-brand-glowPurple: #a855f7;

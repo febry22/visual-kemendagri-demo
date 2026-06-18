@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 // import { LiveFeed } from './components/LiveFeed';
 // import { MetricsPanel } from './components/MetricsPanel';
-import { TopContributors } from './components/TopContributors';
+// import { TopContributors } from './components/TopContributors';
 import { IndonesiaMap } from './components/IndonesiaMap';
-import { StatusCharts } from './components/StatusCharts';
-import { ActionableItems } from './components/ActionableItems';
+// import { StatusCharts } from './components/StatusCharts';
+// import { ActionableItems } from './components/ActionableItems';
 import { Sidebar } from './components/Sidebar';
 import { TopMetricsRow } from './components/TopMetricsRow';
+import { AiInsights } from './components/AiInsights';
 import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
@@ -130,9 +131,10 @@ function App() {
 
         {/* Column 3: Right Widgets */}
         <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
-          <StatusCharts />
+          <AiInsights />
+          {/* <StatusCharts />
           <TopContributors />
-          <ActionableItems />
+          <ActionableItems /> */}
         </div>
         </div>
       </main>

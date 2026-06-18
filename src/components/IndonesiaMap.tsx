@@ -41,7 +41,6 @@ export function IndonesiaMap({ theme }: IndonesiaMapProps) {
         <h2 className="text-xl font-bold drop-shadow-sm transition-colors">
           PETA PRIORITAS NASIONAL
         </h2>
-        <p className="text-sm text-brand-textMuted font-medium mt-1">Sebaran Nilai Indeks Pembangunan (Simulasi)</p>
       </div>
 
       <div className="w-full h-full flex-1">

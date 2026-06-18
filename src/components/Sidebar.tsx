@@ -80,7 +80,7 @@ export function Sidebar() {
             }`}
           >
             <item.icon className={`w-5 h-5 shrink-0 transition-colors ${item.active ? 'text-blue-600 dark:text-blue-400' : 'text-brand-textMuted group-hover:text-blue-500'}`} />
-            {isExpanded && <span className={`whitespace-nowrap transition-colors ${!item.active ? 'group-hover:text-gray-900 dark:group-hover:text-white' : ''}`}>{item.label}</span>}
+            {isExpanded && <span className={`whitespace-nowrap transition-colors ${!item.active ? 'group-hover:text-brand-text' : ''}`}>{item.label}</span>}
           </button>
         ))}
       </div>
@@ -94,7 +94,7 @@ export function Sidebar() {
           }`}
         >
           <Settings className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
-          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-gray-900 dark:group-hover:text-white">Pengaturan</span>}
+          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-brand-text">Pengaturan</span>}
         </button>
         <button 
           title={!isExpanded ? "Pusat Bantuan" : undefined}
@@ -103,7 +103,7 @@ export function Sidebar() {
           }`}
         >
           <HelpCircle className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
-          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-gray-900 dark:group-hover:text-white">Pusat Bantuan</span>}
+          {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-brand-text">Pusat Bantuan</span>}
         </button>
       </div>
     </aside>
