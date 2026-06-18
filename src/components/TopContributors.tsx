@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { provincesData } from '../data/regionsData';
 import { BarChart3 } from 'lucide-react';
 

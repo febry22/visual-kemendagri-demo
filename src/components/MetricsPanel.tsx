@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { nationalAverages } from '../data/regionsData';
 import { Compass } from 'lucide-react';
 

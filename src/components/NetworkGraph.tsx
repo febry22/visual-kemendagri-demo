@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 import { regionalsData } from '../data/regionsData';
 import type { Province } from '../data/regionsData';

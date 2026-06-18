@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { provincesData } from '../data/regionsData';
 import { AlertCircle, ChevronRight } from 'lucide-react';
 
