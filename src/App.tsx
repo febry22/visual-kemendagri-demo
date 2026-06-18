@@ -7,7 +7,6 @@ import { StatusCharts } from './components/StatusCharts';
 import { ActionableItems } from './components/ActionableItems';
 import { Sidebar } from './components/Sidebar';
 import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
-
 function App() {
   const [time, setTime] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -59,11 +58,14 @@ function App() {
             <Database className="w-5 h-5 text-white animate-pulse" />
           </div>
           <div>
-            <h1 className="text-base md:text-lg font-black tracking-wider transition-colors">
-              DASHBOARD VISUALISASI KEMENDAGRI
+            <h1 className="text-base md:text-lg font-black tracking-wider transition-colors uppercase">
+              STRADA-AI BSKDN
             </h1>
-            <p className="text-[10px] md:text-xs text-brand-textMuted font-medium tracking-wide">
-              Sistem Analisis Interkoneksi & Indikator Kinerja Wilayah (Demo)
+            <p className="text-[10px] md:text-[11px] text-brand-textMuted font-semibold tracking-wide">
+              Sistem Terpadu Rekomendasi Strategis Kebijakan Berbasis Artificial Intelligence
+            </p>
+            <p className="text-[9px] md:text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wide mt-0.5">
+              Dashboard Strategis untuk Mendukung Rekomendasi Kebijakan Dalam Negeri
             </p>
           </div>
         </div>

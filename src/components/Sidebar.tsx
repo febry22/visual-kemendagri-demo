@@ -1,15 +1,34 @@
 import { useState } from 'react';
-import { LayoutDashboard, Users, Map, Settings, HelpCircle, FileText, Database, ChevronLeft, ChevronRight } from 'lucide-react';
+import { 
+  Home, 
+  FileText, 
+  BarChart3, 
+  Users, 
+  AlertTriangle, 
+  Lightbulb, 
+  BrainCircuit, 
+  Radar, 
+  ClipboardList, 
+  Settings, 
+  HelpCircle, 
+  ChevronLeft, 
+  ChevronRight 
+} from 'lucide-react';
+import logoKemendagri from '../assets/logo-kemendagri.png';
 
 export function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard Utama', active: true },
-    { icon: Map, label: 'Peta Interkoneksi', active: false },
-    { icon: Database, label: 'Data Indikator', active: false },
-    { icon: Users, label: 'Demografi & Sosial', active: false },
-    { icon: FileText, label: 'Laporan Wilayah', active: false },
+    { icon: Home, label: 'Beranda', active: true },
+    { icon: FileText, label: 'Profil Daerah', active: false },
+    { icon: BarChart3, label: 'Analitik Tematik', active: false },
+    { icon: Users, label: 'Komparasi Daerah', active: false },
+    { icon: AlertTriangle, label: 'Peringatan Dini', active: false },
+    { icon: Lightbulb, label: 'Inovasi Daerah', active: false },
+    { icon: BrainCircuit, label: 'Rekomendasi AI', active: false },
+    { icon: Radar, label: 'Command Center', active: false },
+    { icon: ClipboardList, label: 'Laporan Eksekutif', active: false },
   ];
 
   return (
@@ -27,13 +46,16 @@ export function Sidebar() {
       {/* Logo Area */}
       <div className={`h-[73px] flex items-center border-b border-brand-border/60 shrink-0 ${isExpanded ? 'px-6' : 'px-0 justify-center'}`}>
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
-            <span className="text-white font-bold text-sm">K</span>
-          </div>
+          <img src={logoKemendagri} alt="Logo Kemendagri" className="w-8 h-8 object-contain shrink-0 drop-shadow-md" />
           {isExpanded && (
-            <span className="font-bold tracking-wide text-lg whitespace-nowrap overflow-hidden transition-colors">
-              KEMENDAGRI
-            </span>
+            <div className="flex flex-col overflow-hidden transition-colors">
+              <span className="font-bold tracking-wide text-xs whitespace-nowrap">
+                Kementerian Dalam Negeri
+              </span>
+              <span className="text-[10px] font-medium text-brand-textMuted whitespace-nowrap">
+                Republik Indonesia
+              </span>
+            </div>
           )}
         </div>
       </div>

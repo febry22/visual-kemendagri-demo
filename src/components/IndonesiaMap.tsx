@@ -38,7 +38,7 @@ export function IndonesiaMap({ theme }: IndonesiaMapProps) {
     <div className="w-full h-full min-h-[500px] flex flex-col items-center justify-center bg-brand-card/40 backdrop-blur-sm border border-brand-border/50 rounded-2xl p-4 relative overflow-hidden">
       
       <div className="absolute top-6 left-6 z-10 pointer-events-none">
-        <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 drop-shadow-sm">
+        <h2 className="text-xl font-bold drop-shadow-sm transition-colors">
           Peta Indikator Wilayah Indonesia
         </h2>
         <p className="text-sm text-brand-textMuted font-medium mt-1">Sebaran Nilai Indeks Pembangunan (Simulasi)</p>
