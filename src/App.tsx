@@ -230,7 +230,7 @@ function App() {
 
         {/* Column 3: Right Widgets */}
         <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
-          <AiInsights activeProvince={activeProvince} userRole={userRole} />
+          <AiInsights activeProvince={activeProvince} />
           {/* <StatusCharts />
           <TopContributors />
           <ActionableItems /> */}

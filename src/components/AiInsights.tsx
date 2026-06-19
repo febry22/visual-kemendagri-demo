@@ -1,11 +1,10 @@
-import { BrainCircuit, Zap, Send } from 'lucide-react';
+import { BrainCircuit, Zap } from 'lucide-react';
 
 interface AiInsightsProps {
   activeProvince: string | null;
-  userRole?: 'operator' | 'pimpinan';
 }
 
-export function AiInsights({ activeProvince, userRole = 'operator' }: AiInsightsProps) {
+export function AiInsights({ activeProvince }: AiInsightsProps) {
   const isProv = activeProvince !== null;
   const name = isProv ? activeProvince : 'Nasional';
 
