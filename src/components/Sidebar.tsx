@@ -21,9 +21,20 @@ interface SidebarProps {
   setMapColorDark?: (c: string) => void;
   mapColorLight?: string;
   setMapColorLight?: (c: string) => void;
+  userRole?: 'operator' | 'pimpinan';
+  setUserRole?: (role: 'operator' | 'pimpinan') => void;
+  setIsChatGptLoginOpen?: (open: boolean) => void;
 }
 
-export function Sidebar({ mapColorDark = '#6366f1', setMapColorDark, mapColorLight = '#f97316', setMapColorLight }: SidebarProps) {
+export function Sidebar({ 
+  mapColorDark = '#6366f1', 
+  setMapColorDark, 
+  mapColorLight = '#f97316', 
+  setMapColorLight,
+  userRole = 'operator',
+  setUserRole,
+  setIsChatGptLoginOpen
+}: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -52,7 +63,7 @@ export function Sidebar({ mapColorDark = '#6366f1', setMapColorDark, mapColorLig
       </button>
 
       {/* Logo Area */}
-      <div className={`h-[73px] flex items-center border-b border-brand-border/60 shrink-0 ${isExpanded ? 'px-6' : 'px-0 justify-center'}`}>
+      <div className={`h-[88px] flex items-center border-b border-brand-border/60 shrink-0 ${isExpanded ? 'px-6' : 'px-0 justify-center'}`}>
         <div className="flex items-center gap-3">
           <img src={logoKemendagri} alt="Logo Kemendagri" className="w-8 h-8 object-contain shrink-0 drop-shadow-md" />
           {isExpanded && (
@@ -95,7 +106,7 @@ export function Sidebar({ mapColorDark = '#6366f1', setMapColorDark, mapColorLig
 
       {/* Bottom Area */}
       <div className={`p-4 border-t border-brand-border/40 flex flex-col gap-2 shrink-0 ${isExpanded ? '' : 'items-center px-2'}`}>
-        <div className="relative w-full">
+        <div className="relative flex justify-center w-full">
           <button 
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
             title={!isExpanded ? "Pengaturan" : undefined}
@@ -145,6 +156,35 @@ export function Sidebar({ mapColorDark = '#6366f1', setMapColorDark, mapColorLig
           <HelpCircle className="w-5 h-5 shrink-0 transition-colors group-hover:text-blue-500" />
           {isExpanded && <span className="whitespace-nowrap transition-colors group-hover:text-brand-text">Pusat Bantuan</span>}
         </button>
+
+        {/* User Role Switch */}
+        <div className={`mt-2 flex ${isExpanded ? 'items-center gap-1 w-full' : 'flex-col gap-1 w-10'} bg-brand-border/30 p-1 rounded-xl border border-brand-border/50 shrink-0`}>
+          <button
+            onClick={() => setUserRole?.('operator')}
+            title={!isExpanded ? "Role: Operator" : undefined}
+            className={`flex-1 flex justify-center py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              userRole === 'operator'
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'text-brand-textMuted hover:text-brand-text'
+            }`}
+          >
+            {isExpanded ? 'Operator' : 'OP'}
+          </button>
+          <button
+            onClick={() => {
+              setUserRole?.('pimpinan');
+              setIsChatGptLoginOpen?.(true);
+            }}
+            title={!isExpanded ? "Role: Pimpinan" : undefined}
+            className={`flex-1 flex justify-center py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              userRole === 'pimpinan'
+                ? 'bg-amber-500 text-white shadow-md shadow-amber-500/20'
+                : 'text-brand-textMuted hover:text-brand-text'
+            }`}
+          >
+            {isExpanded ? 'Pimpinan' : 'PM'}
+          </button>
+        </div>
       </div>
     </aside>
   );

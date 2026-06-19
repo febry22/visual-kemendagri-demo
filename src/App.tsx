@@ -25,6 +25,8 @@ function App() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
   const [customStartDate, setCustomStartDate] = useState<string>('');
   const [customEndDate, setCustomEndDate] = useState<string>('');
+  const [userRole, setUserRole] = useState<'operator' | 'pimpinan'>('operator');
+  const [isChatGptLoginOpen, setIsChatGptLoginOpen] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -63,12 +65,15 @@ function App() {
       <Sidebar 
         mapColorDark={mapColorDark} setMapColorDark={setMapColorDark} 
         mapColorLight={mapColorLight} setMapColorLight={setMapColorLight} 
+        userRole={userRole}
+        setUserRole={setUserRole}
+        setIsChatGptLoginOpen={setIsChatGptLoginOpen}
       />
       <div className="flex-1 flex flex-col min-w-0">
       {/* Premium Futuristic Header */}
-      <header className="px-6 py-4 md:py-0 md:h-[73px] border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors duration-300">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
+      <header className="px-6 py-4 md:h-[88px] border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col xl:flex-row xl:items-center justify-between gap-4 transition-colors duration-300">
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center shadow-lg shadow-purple-500/20 shrink-0">
             <Database className="w-5 h-5 text-white animate-pulse" />
           </div>
           <div>
@@ -78,15 +83,15 @@ function App() {
             <p className="text-[10px] md:text-[11px] text-brand-textMuted font-semibold tracking-wide">
               Sistem Terpadu Rekomendasi Strategis Kebijakan Berbasis Artificial Intelligence
             </p>
-            <p className="text-[9px] md:text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wide mt-0.5">
+            <p className="text-[9px] md:text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wide mt-0.5 hidden md:block">
               Dashboard Strategis untuk Mendukung Rekomendasi Kebijakan Dalam Negeri
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-xs">
+        <div className="flex flex-wrap items-center xl:justify-end gap-2.5 text-xs">
           {/* Theme Toggle Slider */}
-          <div className="flex items-center gap-1.5 bg-brand-border/30 p-1 rounded-full border border-brand-border/50">
+          <div className="flex items-center gap-1 bg-brand-border/30 p-1 rounded-full border border-brand-border/50 shrink-0">
             <button
               onClick={() => setTheme('light')}
               className={`p-1.5 rounded-full transition-all cursor-pointer ${
@@ -112,12 +117,13 @@ function App() {
           </div>
 
           {/* Status Indicator (Static) */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 dark:text-emerald-400 text-[10px] font-bold tracking-wider uppercase select-none">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 dark:text-emerald-400 text-[10px] font-bold tracking-wider uppercase select-none shrink-0">
             <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            Database Terkoneksi
+            <span className="hidden sm:inline">Database Terkoneksi</span>
+            <span className="sm:hidden">Terkoneksi</span>
           </div>
           
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-border/40 text-brand-textMuted border border-brand-border text-[10px] font-semibold tracking-wide">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-border/40 text-brand-textMuted border border-brand-border text-[10px] font-semibold tracking-wide shrink-0">
             {time}
           </div>
         </div>
@@ -223,7 +229,7 @@ function App() {
 
         {/* Column 3: Right Widgets */}
         <div className="flex flex-col gap-6 lg:col-span-1 xl:col-span-3">
-          <AiInsights activeProvince={activeProvince} />
+          <AiInsights activeProvince={activeProvince} userRole={userRole} />
           {/* <StatusCharts />
           <TopContributors />
           <ActionableItems /> */}
@@ -249,6 +255,42 @@ function App() {
       </footer>
 
     </div>
+
+      {/* Fake ChatGPT Login Modal */}
+      {isChatGptLoginOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="bg-brand-card border border-brand-border rounded-2xl w-full max-w-sm p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="flex justify-center mb-6">
+              <div className="w-14 h-14 bg-[#10a37f] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,163,127,0.4)]">
+                <BrainCircuit className="w-7 h-7 text-white" />
+              </div>
+            </div>
+            <h3 className="text-xl font-black text-brand-text text-center mb-2">Login ChatGPT Enterprise</h3>
+            <p className="text-xs text-brand-textMuted text-center mb-8 font-medium">
+              Sinkronisasi otentikasi akun Pimpinan untuk akses AI Assistant eksklusif STRADA.
+            </p>
+            
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={() => setIsChatGptLoginOpen(false)}
+                className="w-full bg-[#10a37f] hover:bg-[#0e906f] text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#10a37f]/20"
+              >
+                <span>SSO Kemendagri (Pimpinan)</span>
+              </button>
+              <button 
+                onClick={() => {
+                  setIsChatGptLoginOpen(false);
+                  setUserRole('operator');
+                }}
+                className="w-full bg-transparent hover:bg-brand-border/40 text-brand-textMuted font-bold py-3 rounded-xl transition-colors border border-brand-border cursor-pointer"
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
