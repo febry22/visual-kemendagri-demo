@@ -10,7 +10,7 @@ import { TopMetricsRow } from './components/TopMetricsRow';
 import { AiInsights } from './components/AiInsights';
 import { BottomDashboardRow } from './components/BottomDashboardRow';
 import { IntegratedDataFilter } from './components/IntegratedDataFilter';
-import { Database, ShieldAlert, Sun, Moon } from 'lucide-react';
+import { Database, ShieldAlert, Sun, Moon, Calendar } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -21,6 +21,10 @@ function App() {
   const [activeProvince, setActiveProvince] = useState<string | null>(null);
   const [mapColorDark, setMapColorDark] = useState<string>('#6366f1'); // Default dark
   const [mapColorLight, setMapColorLight] = useState<string>('#f97316'); // Default light
+  const [timeRange, setTimeRange] = useState<string>('1M'); // Default 1 Month
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
+  const [customStartDate, setCustomStartDate] = useState<string>('');
+  const [customEndDate, setCustomEndDate] = useState<string>('');
 
   useEffect(() => {
     const updateTime = () => {
@@ -122,8 +126,83 @@ function App() {
       {/* Main Responsive Grid Layout */}
       <main className="flex-1 p-6 flex flex-col gap-6 w-full mx-auto">
         
+        {/* Dashboard Header & Time Filter */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 w-full relative z-[60]">
+          <div>
+            <h2 className="text-xl font-bold text-brand-text tracking-tight">Ringkasan Eksekutif</h2>
+            <p className="text-xs text-brand-textMuted mt-1">Pantauan metrik utama secara real-time dan terintegrasi.</p>
+          </div>
+          
+          <div className="flex items-center gap-1.5 bg-brand-card/60 backdrop-blur-sm p-1 rounded-lg border border-brand-border/60 shadow-sm w-fit">
+            {['1D', '1W', '1M', '1Y'].map((range) => (
+              <button
+                key={range}
+                onClick={() => setTimeRange(range)}
+                className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all cursor-pointer ${
+                  timeRange === range
+                    ? 'bg-blue-500 text-white shadow-sm'
+                    : 'text-brand-textMuted hover:text-brand-text hover:bg-brand-border/30'
+                }`}
+              >
+                {range}
+              </button>
+            ))}
+            <div className="w-px h-5 bg-brand-border/60 mx-1"></div>
+            
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setTimeRange('custom');
+                  setIsDatePickerOpen(!isDatePickerOpen);
+                }}
+                className={`flex items-center gap-2 px-3 py-1.5 text-xs font-bold rounded-md transition-all cursor-pointer ${
+                  timeRange === 'custom' || isDatePickerOpen
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'text-brand-textMuted hover:text-brand-text hover:bg-brand-border/30'
+                }`}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Custom</span>
+              </button>
+
+              {/* Custom Date Range Picker Popover */}
+              {isDatePickerOpen && (
+                <div className="absolute top-full mt-2 right-0 w-72 bg-brand-card/95 backdrop-blur-xl border border-brand-border rounded-xl shadow-2xl p-4 z-[70] animate-in slide-in-from-top-2 fade-in duration-200">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-brand-text mb-3">Pilih Rentang Waktu</h4>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-semibold text-brand-textMuted uppercase">Mulai Tanggal</label>
+                      <input 
+                        type="date" 
+                        value={customStartDate}
+                        onChange={(e) => setCustomStartDate(e.target.value)}
+                        className="bg-brand-bg/50 border border-brand-border/80 text-brand-text text-xs rounded-lg px-3 py-2 outline-none focus:border-amber-500 transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-semibold text-brand-textMuted uppercase">Sampai Tanggal</label>
+                      <input 
+                        type="date" 
+                        value={customEndDate}
+                        onChange={(e) => setCustomEndDate(e.target.value)}
+                        className="bg-brand-bg/50 border border-brand-border/80 text-brand-text text-xs rounded-lg px-3 py-2 outline-none focus:border-amber-500 transition-colors"
+                      />
+                    </div>
+                    <button 
+                      onClick={() => setIsDatePickerOpen(false)}
+                      className="mt-2 w-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2 rounded-lg transition-colors shadow-lg shadow-amber-500/20 cursor-pointer"
+                    >
+                      Terapkan Filter
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Top Metrics Row */}
-        <TopMetricsRow activeProvince={activeProvince} />
+        <TopMetricsRow activeProvince={activeProvince} timeRange={timeRange} />
 
         <div className="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-4 gap-6 w-full">
           {/* Column 1: Left Widgets (Hidden temporarily) */}

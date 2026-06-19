@@ -14,22 +14,36 @@ import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
 
 interface TopMetricsRowProps {
   activeProvince: string | null;
+  timeRange?: string;
 }
 
-export function TopMetricsRow({ activeProvince }: TopMetricsRowProps) {
+export function TopMetricsRow({ activeProvince, timeRange = '1M' }: TopMetricsRowProps) {
   // Mock data changes based on selected province
   const isProv = activeProvince !== null;
   const modifier = isProv ? 0.8 : 1; // Change data roughly to show filtering
+  
+  // Format period text based on timeRange
+  const getPeriodText = () => {
+    switch(timeRange) {
+      case '1D': return 'vs Kemarin';
+      case '1W': return 'vs Minggu Lalu';
+      case '1M': return 'vs Bulan Lalu';
+      case '1Y': return 'vs Tahun Lalu';
+      case 'custom': return 'vs Periode Sebelumnya';
+      default: return 'vs Bulan Lalu';
+    }
+  };
+  const periodText = getPeriodText();
 
   const metrics = [
-    { id: 'kemiskinan', title: 'Kemiskinan', value: (9.21 * modifier).toFixed(2) + '%', change: '-0,35%', isPositive: true, period: 'vs Apr 2025', icon: Users, data: [9.6, 9.8, 9.3, 9.5, 9.25, 9.21] },
-    { id: 'stunting', title: 'Stunting', value: (21.3 * modifier).toFixed(1) + '%', change: '-0,6%', isPositive: true, period: 'vs Apr 2025', icon: UserPlus, data: [22.2, 21.5, 21.8, 21.1, 21.6, 21.3] },
-    { id: 'tpt', title: 'TPT', value: (5.32 * modifier).toFixed(2) + '%', change: '+0,18%', isPositive: false, period: 'vs Apr 2025', icon: Briefcase, data: [5.0, 5.3, 5.1, 5.4, 5.2, 5.32] },
-    { id: 'ipm', title: 'IPM', value: (73.41 * (isProv ? 1.05 : 1)).toFixed(2), change: '+0,42', isPositive: true, period: 'vs Apr 2025', icon: TrendingUp, data: [72.5, 73.1, 72.8, 73.5, 73.2, 73.41] },
-    { id: 'spbe', title: 'SPBE', value: (3.12 * (isProv ? 1.1 : 1)).toFixed(2), change: '+0,11', isPositive: true, period: 'vs Apr 2025', icon: MonitorSmartphone, data: [2.9, 3.1, 3.0, 3.2, 3.05, 3.12] },
-    { id: 'iid', title: 'IID', value: (0.54 * modifier).toFixed(2), change: '+0,03', isPositive: true, period: 'vs Apr 2025', icon: Building2, data: [0.45, 0.51, 0.49, 0.55, 0.52, 0.54] },
-    { id: 'inflasi', title: 'Inflasi', value: (2.84 * modifier).toFixed(2) + '%', change: '+0,19%', isPositive: false, period: 'vs Apr 2025', icon: ShoppingCart, data: [2.5, 2.8, 2.6, 2.9, 2.7, 2.84] },
-    { id: 'fiskal', title: 'Kinerja Fiskal', value: (73.6 * (isProv ? 1.02 : 1)).toFixed(1) + '%', change: '+1,2%', isPositive: true, period: 'vs Apr 2025', icon: CircleDollarSign, data: [71, 73, 72, 74, 72.5, 73.6] },
+    { id: 'kemiskinan', title: 'Kemiskinan', value: (9.21 * modifier).toFixed(2) + '%', change: '-0,35%', isPositive: true, period: periodText, icon: Users, data: [9.6, 9.8, 9.3, 9.5, 9.25, 9.21] },
+    { id: 'stunting', title: 'Stunting', value: (21.3 * modifier).toFixed(1) + '%', change: '-0,6%', isPositive: true, period: periodText, icon: UserPlus, data: [22.2, 21.5, 21.8, 21.1, 21.6, 21.3] },
+    { id: 'tpt', title: 'TPT', value: (5.32 * modifier).toFixed(2) + '%', change: '+0,18%', isPositive: false, period: periodText, icon: Briefcase, data: [5.0, 5.3, 5.1, 5.4, 5.2, 5.32] },
+    { id: 'ipm', title: 'IPM', value: (73.41 * (isProv ? 1.05 : 1)).toFixed(2), change: '+0,42', isPositive: true, period: periodText, icon: TrendingUp, data: [72.5, 73.1, 72.8, 73.5, 73.2, 73.41] },
+    { id: 'spbe', title: 'SPBE', value: (3.12 * (isProv ? 1.1 : 1)).toFixed(2), change: '+0,11', isPositive: true, period: periodText, icon: MonitorSmartphone, data: [2.9, 3.1, 3.0, 3.2, 3.05, 3.12] },
+    { id: 'iid', title: 'IID', value: (0.54 * modifier).toFixed(2), change: '+0,03', isPositive: true, period: periodText, icon: Building2, data: [0.45, 0.51, 0.49, 0.55, 0.52, 0.54] },
+    { id: 'inflasi', title: 'Inflasi', value: (2.84 * modifier).toFixed(2) + '%', change: '+0,19%', isPositive: false, period: periodText, icon: ShoppingCart, data: [2.5, 2.8, 2.6, 2.9, 2.7, 2.84] },
+    { id: 'fiskal', title: 'Kinerja Fiskal', value: (73.6 * (isProv ? 1.02 : 1)).toFixed(1) + '%', change: '+1,2%', isPositive: true, period: periodText, icon: CircleDollarSign, data: [71, 73, 72, 74, 72.5, 73.6] },
   ];
 
   return (
