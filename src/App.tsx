@@ -120,7 +120,7 @@ function App() {
       </header>
 
       {/* Main Responsive Grid Layout */}
-      <main className="flex-1 p-6 flex flex-col gap-6 max-w-[1800px] mx-auto w-full">
+      <main className="flex-1 p-6 flex flex-col gap-6 w-full mx-auto">
         
         {/* Top Metrics Row */}
         <TopMetricsRow activeProvince={activeProvince} />
@@ -160,7 +160,7 @@ function App() {
 
       {/* Bottom Footer */}
       <footer className="py-4 border-t border-brand-border/40 bg-brand-card/20 text-center text-[10px] text-brand-textMuted transition-colors duration-300">
-        <div className="max-w-[1600px] mx-auto px-6 flex justify-between items-center">
+        <div className="w-full mx-auto px-6 flex justify-between items-center">
           <span>Kementerian Dalam Negeri RI © 2026 - Demo Dashboard Interkoneksi Wilayah</span>
           <div className="flex items-center gap-1 text-amber-600 dark:text-amber-500 font-semibold uppercase">
             <ShieldAlert className="w-3.5 h-3.5" />
