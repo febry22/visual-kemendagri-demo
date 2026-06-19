@@ -65,22 +65,6 @@ export function AiInsights({ activeProvince, userRole = 'operator' }: AiInsights
           </div>
         </div>
       </div>
-
-      {userRole === 'pimpinan' && (
-        <div className="mt-2 pt-4 border-t border-brand-border/60">
-          <div className="flex items-center gap-2 bg-brand-bg border border-brand-border/80 rounded-xl p-1 shadow-inner focus-within:border-[#10a37f] focus-within:ring-1 focus-within:ring-[#10a37f]/50 transition-all">
-            <input 
-              type="text" 
-              placeholder="Tanya ChatGPT terkait insight di atas..." 
-              className="flex-1 bg-transparent border-none text-xs text-brand-text px-3 py-2 outline-none placeholder:text-brand-textMuted"
-            />
-            <button className="w-8 h-8 rounded-lg bg-[#10a37f] hover:bg-[#0e906f] flex items-center justify-center transition-colors cursor-pointer shrink-0">
-              <Send className="w-4 h-4 text-white" />
-            </button>
-          </div>
-          <p className="text-[9px] text-brand-textMuted text-center mt-2 font-medium">ChatGPT Enterprise - Kemendagri Secure Sync</p>
-        </div>
-      )}
     </div>
   );
 }

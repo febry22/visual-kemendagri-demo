@@ -10,7 +10,7 @@ import { TopMetricsRow } from './components/TopMetricsRow';
 import { AiInsights } from './components/AiInsights';
 import { BottomDashboardRow } from './components/BottomDashboardRow';
 import { IntegratedDataFilter } from './components/IntegratedDataFilter';
-import { Database, ShieldAlert, Sun, Moon, Calendar, BrainCircuit } from 'lucide-react';
+import { Database, ShieldAlert, Sun, Moon, Calendar, BrainCircuit, X, Send } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -27,6 +27,7 @@ function App() {
   const [customEndDate, setCustomEndDate] = useState<string>('');
   const [userRole, setUserRole] = useState<'operator' | 'pimpinan'>('operator');
   const [isChatGptLoginOpen, setIsChatGptLoginOpen] = useState(false);
+  const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -78,10 +79,10 @@ function App() {
           </div>
           <div>
             <h1 className="text-base md:text-lg font-black tracking-wider transition-colors uppercase">
-              STRADA-AI BSKDN
+              SINTESIS
             </h1>
             <p className="text-[10px] md:text-[11px] text-brand-textMuted font-semibold tracking-wide">
-              Sistem Terpadu Rekomendasi Strategis Kebijakan Berbasis Artificial Intelligence
+              Smart Integrated System for Strategic Information and Evaluation Services
             </p>
             <p className="text-[9px] md:text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wide mt-0.5 hidden md:block">
               Dashboard Strategis untuk Mendukung Rekomendasi Kebijakan Dalam Negeri
@@ -267,7 +268,7 @@ function App() {
             </div>
             <h3 className="text-xl font-black text-brand-text text-center mb-2">Login ChatGPT Enterprise</h3>
             <p className="text-xs text-brand-textMuted text-center mb-8 font-medium">
-              Sinkronisasi otentikasi akun Pimpinan untuk akses AI Assistant eksklusif STRADA.
+              Sinkronisasi otentikasi akun Pimpinan untuk akses AI Assistant eksklusif SINTESIS.
             </p>
             
             <div className="flex flex-col gap-3">
@@ -288,6 +289,67 @@ function App() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Floating ChatGPT Button & Chat Window for Pimpinan */}
+      {userRole === 'pimpinan' && (
+        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end animate-in fade-in slide-in-from-bottom-10 duration-500">
+          {/* Chat Window */}
+          {isChatWindowOpen && (
+            <div className="mb-4 w-80 md:w-96 h-[450px] bg-brand-card border border-brand-border rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
+              {/* Chat Header */}
+              <div className="bg-gradient-to-r from-[#10a37f] to-[#0d8a6a] p-4 flex items-center justify-between shadow-md">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <BrainCircuit className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-white font-bold text-sm">SINTESIS AI Assistant</span>
+                    <span className="text-white/80 text-[10px] font-medium">ChatGPT Enterprise - Secure Sync</span>
+                  </div>
+                </div>
+                <button onClick={() => setIsChatWindowOpen(false)} className="text-white/80 hover:text-white cursor-pointer transition-colors bg-white/10 p-1.5 rounded-full hover:bg-white/20">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              
+              {/* Chat Body */}
+              <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-4 bg-brand-bg/50">
+                <div className="flex gap-3 max-w-[85%]">
+                  <div className="w-7 h-7 shrink-0 bg-[#10a37f] rounded-full flex items-center justify-center shadow-md">
+                    <BrainCircuit className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="bg-brand-card border border-brand-border p-3.5 rounded-2xl rounded-tl-sm shadow-sm flex flex-col gap-2">
+                    <p className="text-xs text-brand-text leading-relaxed font-medium">Halo Pimpinan! Saya adalah AI Assistant SINTESIS yang sudah terhubung dengan data eksekutif.</p>
+                    <p className="text-xs text-brand-text leading-relaxed font-medium">Berdasarkan metrik {activeProvince || 'Nasional'} saat ini, apakah ada wawasan spesifik atau analisis tren yang ingin Anda perdalam hari ini?</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Chat Input */}
+              <div className="p-3 border-t border-brand-border bg-brand-card/90 backdrop-blur-md">
+                <div className="flex items-center gap-2 bg-brand-bg border border-brand-border/80 rounded-xl p-1.5 shadow-inner focus-within:border-[#10a37f] focus-within:ring-1 focus-within:ring-[#10a37f]/50 transition-all">
+                  <input 
+                    type="text" 
+                    placeholder="Ketik instruksi atau pertanyaan..." 
+                    className="flex-1 bg-transparent border-none text-xs text-brand-text px-2 outline-none placeholder:text-brand-textMuted"
+                  />
+                  <button className="w-8 h-8 rounded-lg bg-[#10a37f] hover:bg-[#0e906f] flex items-center justify-center transition-colors cursor-pointer shrink-0 shadow-md">
+                    <Send className="w-4 h-4 text-white" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {/* FAB Button */}
+          <button 
+            onClick={() => setIsChatWindowOpen(!isChatWindowOpen)}
+            className={`w-14 h-14 bg-[#10a37f] hover:bg-[#0e906f] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(16,163,127,0.5)] transition-all duration-300 hover:scale-110 cursor-pointer ${isChatWindowOpen ? 'rotate-90' : 'rotate-0'}`}
+          >
+            {isChatWindowOpen ? <X className="w-6 h-6" /> : <BrainCircuit className="w-6 h-6" />}
+          </button>
         </div>
       )}
 
