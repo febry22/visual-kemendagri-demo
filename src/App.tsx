@@ -10,7 +10,7 @@ import { TopMetricsRow } from './components/TopMetricsRow';
 import { AiInsights } from './components/AiInsights';
 import { BottomDashboardRow } from './components/BottomDashboardRow';
 import { IntegratedDataFilter } from './components/IntegratedDataFilter';
-import { Database, ShieldAlert, Sun, Moon, Calendar } from 'lucide-react';
+import { Database, ShieldAlert, Sun, Moon, Calendar, BrainCircuit } from 'lucide-react';
 function App() {
   const [time, setTime] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
