@@ -10,7 +10,8 @@ import { TopMetricsRow } from './components/TopMetricsRow';
 import { AiInsights } from './components/AiInsights';
 import { BottomDashboardRow } from './components/BottomDashboardRow';
 import { IntegratedDataFilter } from './components/IntegratedDataFilter';
-import { Database, ShieldAlert, Sun, Moon, Calendar, BrainCircuit, X, Send } from 'lucide-react';
+import { ShieldAlert, Sun, Moon, Calendar, BrainCircuit, X, Send } from 'lucide-react';
+import logoPng from './assets/logo.png';
 function App() {
   const [time, setTime] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -74,18 +75,18 @@ function App() {
       {/* Premium Futuristic Header */}
       <header className="px-6 py-4 md:h-[88px] border-b border-brand-border/60 bg-brand-card/45 backdrop-blur-md sticky top-0 z-50 flex flex-col xl:flex-row xl:items-center justify-between gap-4 transition-colors duration-300">
         <div className="flex items-center gap-3 shrink-0">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center shadow-lg shadow-purple-500/20 shrink-0">
-            <Database className="w-5 h-5 text-white animate-pulse" />
+          <div className="w-16 h-16 flex items-center justify-center shrink-0">
+            <img src={logoPng} alt="Logo" className="w-16 h-16 object-contain drop-shadow-md" />
           </div>
           <div>
             <h1 className="text-base md:text-lg font-black tracking-wider transition-colors uppercase">
               SINTESIS
             </h1>
-            <p className="text-[10px] md:text-[11px] text-brand-textMuted font-semibold tracking-wide">
+            <p className="text-[10px] md:text-[11px] text-brand-textMuted font-bold tracking-wide uppercase">
               Smart Integrated System for Strategic Information and Evaluation Services
             </p>
-            <p className="text-[9px] md:text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wide mt-0.5 hidden md:block">
-              Dashboard Strategis untuk Mendukung Rekomendasi Kebijakan Dalam Negeri
+            <p className="text-[9px] md:text-[10px] text-amber-650 dark:text-amber-500 font-extrabold tracking-widest mt-1 uppercase hidden md:block">
+              Integrate &bull; Analyze &bull; Evaluate &bull; Impact
             </p>
           </div>
         </div>

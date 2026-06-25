@@ -8,10 +8,26 @@ interface NetworkGraphProps {
   theme: 'dark' | 'light';
 }
 
+interface NodeInfo {
+  name: string;
+  type?: string;
+  custom?: boolean;
+  skorIpm?: number;
+  skorIkf?: number;
+  skorTik?: number;
+  skorIdi?: number;
+  rankNasional?: number;
+  avgSkor?: number;
+  ipm?: number;
+  ikf?: number;
+  tik?: number;
+  idi?: number;
+}
+
 export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
-  const [selectedNodeInfo, setSelectedNodeInfo] = useState<any>(null);
+  const [selectedNodeInfo, setSelectedNodeInfo] = useState<NodeInfo | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'IPM' | 'IKF' | 'TIK' | 'IDI'>('ALL');
 
@@ -87,10 +103,11 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
 
     // Connect Provinces to their Regionals
     selectedProvinces.forEach(prov => {
-      let lineColor = '#64748b';
-      if (prov.rankNasional <= 10) lineColor = '#10b981';
-      else if (prov.rankNasional > 25) lineColor = '#ef4444';
-      else lineColor = '#f59e0b';
+      const lineColor = prov.rankNasional <= 10 
+        ? '#10b981' 
+        : prov.rankNasional > 25 
+          ? '#ef4444' 
+          : '#f59e0b';
 
       elements.push({
         data: {
@@ -132,10 +149,11 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
       const randomInds = [...outerIndicators].sort(() => 0.5 - Math.random()).slice(0, 2);
       
       randomInds.forEach(ind => {
-        let edgeColor = isLight ? '#cbd5e1' : '#1e293b';
-        if (prov.rankNasional <= 10) edgeColor = isLight ? '#a7f3d0' : '#065f46';
-        else if (prov.rankNasional > 25) edgeColor = isLight ? '#fecaca' : '#991b1b';
-        else edgeColor = isLight ? '#fed7aa' : '#78350f';
+        const edgeColor = prov.rankNasional <= 10
+          ? (isLight ? '#a7f3d0' : '#065f46')
+          : prov.rankNasional > 25
+            ? (isLight ? '#fecaca' : '#991b1b')
+            : (isLight ? '#fed7aa' : '#78350f');
 
         elements.push({
           data: {
@@ -433,7 +451,7 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ theme }) => {
                 </div>
                 <div className="border-t border-brand-border/40 pt-1.5 flex justify-between text-[10px] text-brand-textMuted">
                   <span>Rank Nas: <strong className="text-gray-200 dark:text-gray-800">#{selectedNodeInfo.rankNasional}</strong></span>
-                  <span>Avg Skor: <strong className="text-purple-300 dark:text-purple-700">{selectedNodeInfo.avgSkor.toFixed(1)}%</strong></span>
+                  <span>Avg Skor: <strong className="text-purple-300 dark:text-purple-700">{(selectedNodeInfo.avgSkor ?? 0).toFixed(1)}%</strong></span>
                 </div>
               </div>
             )}

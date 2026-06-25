@@ -5,11 +5,25 @@ import { geoCentroid } from 'd3-geo';
 import { ChevronLeft, Plus, Minus } from 'lucide-react';
 import geoData from '../data/indonesia.json';
 
+interface MapFeature {
+  type: string;
+  properties: {
+    Propinsi?: string;
+    state?: string;
+    name?: string;
+  };
+  geometry: {
+    type: string;
+    coordinates: number[] | number[][] | number[][][];
+  };
+  rsmKey?: string;
+}
+
 // Generate mock data for provinces to create a heatmap effect
 const generateMockData = () => {
   const data: Record<string, number> = {};
   if (geoData && geoData.features) {
-    geoData.features.forEach((feature: any) => {
+    (geoData.features as unknown as MapFeature[]).forEach((feature: MapFeature) => {
       const provinceName = feature.properties.Propinsi || feature.properties.state || feature.properties.name || "Unknown";
       // Random value between 60 and 85 (simulating IPM)
       data[provinceName] = Math.floor(Math.random() * 25) + 60;
@@ -41,9 +55,9 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince, mapColo
         : ['#ffedd5', mapColorLight] // Light theme base -> User Light Color
     );
 
-  const handleProvinceClick = (geo: any) => {
+  const handleProvinceClick = (geo: MapFeature) => {
     const provinceName = geo.properties.Propinsi || geo.properties.state || geo.properties.name || "Unknown";
-    const centroid = geoCentroid(geo);
+    const centroid = geoCentroid(geo as unknown as Parameters<typeof geoCentroid>[0]);
     
     // Zoom into the province
     setPosition({ coordinates: centroid as [number, number], zoom: 4 });
@@ -127,7 +141,7 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince, mapColo
             maxZoom={8}
             onMoveEnd={(newPos) => setPosition(newPos)}
           >
-            <Geographies geography={geoData as any}>
+            <Geographies geography={geoData as unknown as Record<string, unknown>}>
               {({ geographies }) =>
                 geographies.map((geo) => {
                   const provinceName = geo.properties.Propinsi || geo.properties.state || geo.properties.name || "Unknown";
@@ -139,7 +153,7 @@ export function IndonesiaMap({ theme, activeProvince, setActiveProvince, mapColo
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      onClick={() => handleProvinceClick(geo)}
+                      onClick={() => handleProvinceClick(geo as MapFeature)}
                       onMouseEnter={() => {
                         setTooltipContent(`${provinceName} - Nilai: ${value}`);
                       }}

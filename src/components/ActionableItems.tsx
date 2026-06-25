@@ -21,7 +21,7 @@ export const ActionableItems: React.FC = () => {
       scores.sort((a, b) => a.val - b.val);
       const weakest = scores[0];
 
-      let actionText = '';
+      let actionText: string;
       if (weakest.name === 'IPM') {
         actionText = 'Peningkatan Kualitas Pendidikan & Layanan Kesehatan Dasar';
       } else if (weakest.name === 'IKF') {

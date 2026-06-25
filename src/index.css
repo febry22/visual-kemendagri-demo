@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: #080c14;
-  --card-color: #0f1626;
-  --border-color: #1f293d;
+  --bg-color: #030a1e;
+  --card-color: #081430;
+  --border-color: #142854;
   --text-color: #f3f4f6;
   --text-muted: #94a3b8;
-  --map-opacity: 0.1;
+  --map-opacity: 0.15;
 }
 
 :root.light {

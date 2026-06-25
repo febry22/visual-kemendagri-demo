@@ -3,6 +3,30 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } fro
 import { regionalsData } from '../data/regionsData';
 import { Activity } from 'lucide-react';
 
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number | string;
+    color?: string;
+  }>;
+  label?: string;
+}
+
+// Custom tooltip styles
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-brand-card/90 border border-brand-border p-2.5 rounded shadow-xl backdrop-blur-md text-xs">
+        <p className="font-bold text-gray-800 dark:text-gray-200 mb-1">{label}</p>
+        <p className="text-blue-600 dark:text-blue-400">Updated: {payload[0].value} Prov</p>
+        <p className="text-orange-600 dark:text-orange-400">Lagging: {payload[1].value} Prov</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export const StatusCharts: React.FC = () => {
   // Process the excel data for the bar chart
   // Group provinces by regional and categorize as "Updated" (rankNasional <= 18) vs "Lagging" (rankNasional > 18)
@@ -21,20 +45,6 @@ export const StatusCharts: React.FC = () => {
       Lagging: lagging,
     };
   });
-
-  // Custom tooltip styles
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-brand-card/90 border border-brand-border p-2.5 rounded shadow-xl backdrop-blur-md text-xs">
-          <p className="font-bold text-gray-800 dark:text-gray-200 mb-1">{label}</p>
-          <p className="text-blue-600 dark:text-blue-400">Updated: {payload[0].value} Prov</p>
-          <p className="text-orange-600 dark:text-orange-400">Lagging: {payload[1].value} Prov</p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="glass-panel rounded-xl p-4 flex flex-col h-[280px]">

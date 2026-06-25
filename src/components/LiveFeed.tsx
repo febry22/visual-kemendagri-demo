@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Radio } from 'lucide-react';
 
 interface FeedItem {
@@ -11,51 +11,47 @@ interface FeedItem {
   time: string;
 }
 
-export const LiveFeed: React.FC = () => {
-  const [feeds, setFeeds] = useState<FeedItem[]>([]);
+const initialItems: FeedItem[] = [
+  {
+    id: '1',
+    region: 'BALI - NUSA TENGGARA',
+    province: 'BALI',
+    metric: 'IPM',
+    change: '+0.2%',
+    isPositive: true,
+    time: '2 jam lalu'
+  },
+  {
+    id: '2',
+    region: 'JAWA',
+    province: 'JAWA TIMUR',
+    metric: 'Skor IKF',
+    change: '-3.1%',
+    isPositive: false,
+    time: '4 jam lalu'
+  },
+  {
+    id: '3',
+    region: 'SUMATERA',
+    province: 'DAERAH KHUSUS JAKARTA',
+    metric: 'Skor IDI',
+    change: '+1.5%',
+    isPositive: true,
+    time: '1 hari lalu'
+  },
+  {
+    id: '4',
+    region: 'SULAWESI',
+    province: 'SULAWESI UTARA',
+    metric: 'TIK',
+    change: '+0.8%',
+    isPositive: true,
+    time: '2 hari lalu'
+  }
+];
 
-  // Initial feed data from real provinces (representing historical updates)
-  useEffect(() => {
-    const initialItems: FeedItem[] = [
-      {
-        id: '1',
-        region: 'BALI - NUSA TENGGARA',
-        province: 'BALI',
-        metric: 'IPM',
-        change: '+0.2%',
-        isPositive: true,
-        time: '2 jam lalu'
-      },
-      {
-        id: '2',
-        region: 'JAWA',
-        province: 'JAWA TIMUR',
-        metric: 'Skor IKF',
-        change: '-3.1%',
-        isPositive: false,
-        time: '4 jam lalu'
-      },
-      {
-        id: '3',
-        region: 'SUMATERA',
-        province: 'DAERAH KHUSUS JAKARTA',
-        metric: 'Skor IDI',
-        change: '+1.5%',
-        isPositive: true,
-        time: '1 hari lalu'
-      },
-      {
-        id: '4',
-        region: 'SULAWESI',
-        province: 'SULAWESI UTARA',
-        metric: 'TIK',
-        change: '+0.8%',
-        isPositive: true,
-        time: '2 hari lalu'
-      }
-    ];
-    setFeeds(initialItems);
-  }, []);
+export const LiveFeed: React.FC = () => {
+  const [feeds] = useState<FeedItem[]>(initialItems);
 
   return (
     <div className="glass-panel rounded-xl p-4 flex flex-col h-[280px]">
